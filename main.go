@@ -341,10 +341,8 @@ PacketLoop:
 						gMemcachedCommands[*ck] = memCmd
 					}
 
-					data := packet.ApplicationLayer().Payload()
-
 					if 0 == len(memCmd.Packets) {
-						commandArray := strings.Split(strings.TrimSpace(string(data)), " ")
+						commandArray := strings.Split(strings.TrimSpace(string(body)), " ")
 
 						switch commandArray[0] {
 						case "set", "add", "replace", "append", "prepend":
@@ -372,11 +370,11 @@ PacketLoop:
 						if 0 == memCmd.DataLen {
 							continue
 						}
-						memCmd.Data = data
+						memCmd.Data = body
 						memCmd.Packets = make([]*netfilter.RawPacket, 1)
 						memCmd.Packets[0] = p
 					} else {
-						memCmd.Data = append(memCmd.Data, data...)
+						memCmd.Data = append(memCmd.Data, body...)
 						memCmd.Packets = append(memCmd.Packets, p)
 					}
 
