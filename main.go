@@ -193,8 +193,9 @@ PacketLoop:
 						gSQLCommands[*ck].DataLen-uint32(len(gSQLCommands[*ck].Data)))
 
 					if uint32(len(gSQLCommands[*ck].Data)) == gSQLCommands[*ck].DataLen {
-						l.Println("Finished processing MySQL packet: ", string(gSQLCommands[*ck].Data[1:]))
-						l.Println("sending ACCEPT for all packets")
+						// TODO:
+						// This data needs to be logged against the logged in user in a datastore of sorts
+						l.Println("MySQL data: ", string(gSQLCommands[*ck].Data[1:]))
 
 						for _, pp := range gSQLCommands[*ck].Packets {
 							nfq.SetVerdict(pp, netfilter.NF_ACCEPT)
@@ -384,8 +385,10 @@ PacketLoop:
 						gMemcachedCommands[*ck].DataLen-uint32(len(gMemcachedCommands[*ck].Data)))
 
 					if uint32(len(gMemcachedCommands[*ck].Data)) == gMemcachedCommands[*ck].DataLen {
-						l.Println("Finished processing Memcached packet: ", string(gMemcachedCommands[*ck].Data[1:]))
-						l.Println("sending ACCEPT for all packets")
+						// TODO:
+						// This data needs to be logged against the logged in user in a datastore of sorts
+						l.Println("Memcached data: ", string(gMemcachedCommands[*ck].Data))
+
 						for _, pp := range gMemcachedCommands[*ck].Packets {
 							nfq.SetVerdict(pp, netfilter.NF_ACCEPT)
 						}
