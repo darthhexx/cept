@@ -359,7 +359,7 @@ PacketLoop:
 							}
 							memCmd.DataLen = uint32(datalen)
 
-						case "get", "delete", "touch", "noop", "quit", "version":
+						case "get", "delete", "touch", "noop", "quit", "stats", "version":
 							memCmd.DataLen = 0
 
 						default:
