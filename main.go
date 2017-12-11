@@ -378,9 +378,8 @@ PacketLoop:
 						memCmd.Packets = append(memCmd.Packets, p)
 					}
 
-					l.Printf("%s : seq ID %d : payload len %d : pending %d\n",
+					l.Printf("%s : payload len %d : pending %d\n",
 						time.Now().Format(time.RFC3339),
-						int32(data[3]),
 						gMemcachedCommands[*ck].DataLen,
 						gMemcachedCommands[*ck].DataLen-uint32(len(gMemcachedCommands[*ck].Data)))
 
