@@ -9,8 +9,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"utils"
-
+	"github.com/darthhexx/cept/utils"
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/layers"
 	"github.com/kung-foo/freki/netfilter"
