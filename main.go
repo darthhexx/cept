@@ -82,7 +82,7 @@ func handleMySQLTraffic() {
 	packets := nfq.Packets()
 
 PacketLoop:
-	for true {
+	for {
 		select {
 		case p := <-packets:
 
@@ -252,14 +252,11 @@ func handleMemcachedTraffic() {
 	packets := nfq.Packets()
 
 PacketLoop:
-	for true {
+	for {
 		select {
 		case p := <-packets:
-
 			atomic.AddUint64(&gMemcachedPacketsProcessed, 1)
-
 			buffer := append(ethHdr, p.Data...)
-
 			packet := gopacket.NewPacket(
 				buffer,
 				layers.LayerTypeEthernet,
@@ -312,6 +309,7 @@ PacketLoop:
 
 						// TODO:
 						// Change the Destination IP/Port of the connection to localhost when in read only mode
+						// using the nfq.SetVerdictModifed() method.
 
 					} else if tcp.RST {
 
@@ -420,8 +418,8 @@ func main() {
 	go handleMySQLTraffic()
 	go handleMemcachedTraffic()
 
-	// Setup the tickers
-	statsTick := time.Tick(time.Duration(5 * time.Second.Nanoseconds()))
+	// Setup the stats ticker
+	statsTick := time.Tick(time.Duration(30 * time.Second.Nanoseconds()))
 
 	for {
 		select {
